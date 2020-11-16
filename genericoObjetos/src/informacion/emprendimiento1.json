@@ -1,0 +1,22 @@
+{
+    "nombreEmprendimiento":"fluyeTinta",
+    "otraClase1":{
+        "nombre": "Lucila Di Vinci",
+        "DNI":37234887,
+        "telefono": 154715489,
+        "direccion":"Calle falsa 123"
+        },
+    "otraClase2":[{
+            "nombreDiseno":"lobo",
+            "estado":"Estado1",
+            "tamano":"mediano",
+            "precio":3000
+            },{
+            "nombreDiseno":"rostro femenino",
+            "estado":"Estado1",
+            "tamano":"grande",
+            "precio":10000
+            }
+            ]
+    
+}

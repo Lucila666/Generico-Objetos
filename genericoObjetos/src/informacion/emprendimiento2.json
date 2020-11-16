@@ -1,0 +1,23 @@
+{
+    
+    "nombreEmprendimiento":"inkCapos",
+    "otraClase1":{
+        "nombre": "Juan Peres",
+        "DNI":37234870,
+        "telefono": 154716874,
+        "direccion":"Inexistente 456"
+        },
+    "otraClase2":[{
+            "nombreDiseno":"pikachu",
+            "estado":"Estado1",
+            "tamano":"chico",
+            "precio":3000
+            },{
+            "nombreDiseno":"mandala",
+            "estado":"Estado1",
+            "tamano":"mediano",
+            "precio":7000
+            }
+            ]
+    
+}

@@ -1,0 +1,11 @@
+{
+    Los atributos comunes, string, int se escriben como el nombre del atributo entre comillas : el valor que le doy
+    "nombreEmprendimiento":"fluyeTinta",
+    
+    Los atributos que son clases que invente van con el nombre del atributo entre comillas : {}
+    "otraClase1":{},
+    
+    Los atributos que son listas de objetos va como el nombre del atributo entre comillas: [] y entre {} cada uno de los objetos de la lista
+    "otraClase2":[{}]
+    
+}
