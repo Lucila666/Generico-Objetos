@@ -5,6 +5,16 @@
  */
 package vista;
 
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import controller.GenericoController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.json.simple.parser.ParseException;
+
 /**
  *
  * @author Valentina
@@ -14,8 +24,36 @@ public class MenuPorContribuyentes extends javax.swing.JFrame {
     /**
      * Creates new form menuCalcular
      */
-    public MenuPorContribuyentes() {
+    public MenuPorContribuyentes() throws ParseException {
         initComponents();
+        labelSalida.setVisible(false);
+        //seteo el cuit al combo
+        ArrayList<String> listaNombres = GenericoController.getControllerEmprendimientos().obtenerNombreContribuyentes();
+        //Creamos el modelo
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < listaNombres.size(); i++) {
+            model.addElement(listaNombres.get(i));
+        }
+        comboBoxNombre.setModel(model);
+        botonCalcular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int salida = GenericoController.getControllerEmprendimientos().traerImporte(comboBoxNombre.getSelectedItem().toString());
+                    if(salida == 0){
+                        JOptionPane.showMessageDialog(null,"Para el el contribuyente solicitado no se encontro impuesto");
+                    }else{
+                        String salidaS= String.valueOf(salida);
+                        labelSalida.setText(salidaS);
+                        labelSalida.setVisible(true);
+                        
+                    }
+                 } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        
     }
 
     /**
@@ -28,28 +66,33 @@ public class MenuPorContribuyentes extends javax.swing.JFrame {
     private void initComponents() {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        labelConstribuyente = new javax.swing.JLabel();
+        comboBoxNombre = new javax.swing.JComboBox();
+        labelImpuesto = new javax.swing.JLabel();
+        labelSalida = new javax.swing.JLabel();
+        botonCalcular = new javax.swing.JButton();
+        botonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jInternalFrame1.setVisible(true);
 
-        jLabel1.setText("Contribuyente:");
+        labelConstribuyente.setText("Contribuyente:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxNombre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel2.setText("jLabel2");
+        labelImpuesto.setText("Impuesto:");
 
-        jLabel3.setText("Salida");
+        labelSalida.setText("Salida");
 
-        jButton1.setText("Calcular");
+        botonCalcular.setText("Calcular");
 
-        jButton2.setText("Salir");
+        botonSalir.setText("Salir");
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -60,16 +103,16 @@ public class MenuPorContribuyentes extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(labelConstribuyente)
+                            .addComponent(labelImpuesto))
                         .addGap(49, 49, 49)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(labelSalida)
+                            .addComponent(comboBoxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(botonCalcular)
                         .addGap(91, 91, 91)
-                        .addComponent(jButton2)))
+                        .addComponent(botonSalir)))
                 .addContainerGap(139, Short.MAX_VALUE))
         );
         jInternalFrame1Layout.setVerticalGroup(
@@ -77,17 +120,17 @@ public class MenuPorContribuyentes extends javax.swing.JFrame {
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelConstribuyente)
+                    .addComponent(comboBoxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(labelImpuesto)
+                    .addComponent(labelSalida))
                 .addGap(87, 87, 87)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(108, Short.MAX_VALUE))
+                    .addComponent(botonCalcular)
+                    .addComponent(botonSalir))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,6 +152,10 @@ public class MenuPorContribuyentes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_botonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,18 +190,22 @@ public class MenuPorContribuyentes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPorContribuyentes().setVisible(true);
+                try {
+                    new MenuPorContribuyentes().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MenuPorContribuyentes.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton botonCalcular;
+    private javax.swing.JButton botonSalir;
+    private javax.swing.JComboBox comboBoxNombre;
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labelConstribuyente;
+    private javax.swing.JLabel labelImpuesto;
+    private javax.swing.JLabel labelSalida;
     // End of variables declaration//GEN-END:variables
 }

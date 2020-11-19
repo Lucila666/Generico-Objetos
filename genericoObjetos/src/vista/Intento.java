@@ -8,8 +8,11 @@ package vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -113,6 +116,11 @@ public class Intento extends JFrame{
         jMenuBar1.add(Agregar);
 
         Salir.setText("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(Salir);
 
         setJMenuBar(jMenuBar1);
@@ -148,14 +156,24 @@ public class Intento extends JFrame{
     }//GEN-LAST:event_porAgenciaActionPerformed
 
     private void porContribuyenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porContribuyenteActionPerformed
-        MenuPorContribuyentes frame = new MenuPorContribuyentes();
-        frame.setVisible(true);
+        MenuPorContribuyentes frame;
+        try {
+            frame = new MenuPorContribuyentes();
+            frame.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(Intento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_porContribuyenteActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         MenuVehiculo frame = new MenuVehiculo();
         frame.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        System.exit(WIDTH);
+    }//GEN-LAST:event_SalirActionPerformed
     
     
      
